@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>xWLHN // Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080808;
+      --bg-grid: #111111;
+      --panel: #0e0e0e;
+      --panel-alt: #141414;
+      --header-bar: #1c1c1c;
+      --border: #2c2c2c;
+      --border-strong: #555555;
+      --text: #f0f0f0;
+      --muted: #8c8c8c;
+      --accent: #ffffff;
+      --accent-inv: #080808;
+    }
+
+    body.light {
+      --bg: #efefef;
+      --bg-grid: #e4e4e4;
+      --panel: #fafafa;
+      --panel-alt: #f0f0f0;
+      --header-bar: #e2e2e2;
+      --border: #cccccc;
+      --border-strong: #888888;
+      --text: #111111;
+      --muted: #555555;
+      --accent: #111111;
+      --accent-inv: #fafafa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(to right, var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--bg-grid) 1px, transparent 1px);
+      background-size: 28px 28px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 18px 18px 120px 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    @keyframes snappyReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      animation: snappyReveal 0.26s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: var(--d, 0ms);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 14px;
+    }
+
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: var(--accent-inv);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: var(--panel-alt);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      font-family: inherit;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.14s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      background: var(--header-bar);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      color: var(--accent-inv);
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .ornament {
+      text-align: center;
+      color: var(--muted);
+      letter-spacing: 6px;
+      font-size: 12px;
+      margin-bottom: 16px;
+      user-select: none;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.9fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .panel-header {
+      background: var(--header-bar);
+      border-bottom: 1px solid var(--border);
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-body {
+      padding: 15px;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      font-style: italic;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .hero-tags {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .bio-box {
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      padding: 14px;
+      color: var(--text);
+      font-size: 12.5px;
+      line-height: 1.75;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info-table tr {
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .info-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .info-table td {
+      padding: 9px 4px;
+      vertical-align: middle;
+    }
+
+    .info-key {
+      color: var(--muted);
+      font-weight: 700;
+      width: 150px;
+      text-transform: uppercase;
+      font-size: 11.5px;
+    }
+
+    .info-val {
+      text-align: right;
+      font-size: 12.5px;
+    }
+
+    .lang-list {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      border: 1px solid var(--border-strong);
+      background: var(--panel-alt);
+      color: var(--text);
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .avatar-outer {
+      border: 1px solid var(--border-strong);
+      padding: 6px;
+      background: var(--panel);
+      margin-bottom: 16px;
+    }
+
+    .avatar-inner {
+      border: 1px dashed var(--border-strong);
+      padding: 4px;
+      background: #000;
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(100%) contrast(120%);
+      image-rendering: pixelated;
+    }
+
+    .avatar-caption {
+      text-align: center;
+      font-size: 10.5px;
+      color: var(--muted);
+      padding-top: 6px;
+      letter-spacing: 1.5px;
+    }
+
+    .gif-card {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 8px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .gif-box {
+      border: 1px solid var(--border);
+      background: #0a0a0a;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .gif-box img {
+      width: 132px;
+      height: 132px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .gif-label {
+      margin-top: 6px;
+      font-size: 11px;
+      font-style: italic;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+
+    .side-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .side-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .side-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 650px) {
+      .focus-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sub-card {
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      padding: 12px;
+    }
+
+    .sub-card-title {
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 5px;
+    }
+
+    .sub-card-desc {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .amp-player {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      width: 290px;
+      background: var(--panel);
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.75);
+      z-index: 100;
+    }
+
+    .amp-titlebar {
+      background: var(--accent);
+      color: var(--accent-inv);
+      padding: 4px 8px;
+      font-size: 10.5px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      letter-spacing: 0.8px;
+    }
+
+    .amp-body {
+      padding: 10px;
+    }
+
+    .amp-screen {
+      background: #050505;
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .amp-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9.5px;
+      color: #8c8c8c;
+      margin-bottom: 3px;
+    }
+
+    .amp-track {
+      font-size: 11.5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 600;
+    }
+
+    .amp-progress {
+      width: 100%;
+      margin: 6px 0 8px 0;
+      accent-color: #ffffff;
+      cursor: pointer;
+      height: 4px;
+    }
+
+    .amp-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .amp-btns {
+      display: flex;
+      gap: 4px;
+    }
+
+    .amp-btn {
+      background: var(--panel-alt);
+      color: var(--text);
+      border: 1px solid var(--border-strong);
+      padding: 3px 8px;
+      font-family: inherit;
+      font-size: 10.5px;
+      cursor: pointer;
+    }
+
+    .amp-btn:hover {
+      background: var(--accent);
+      color: var(--accent-inv);
+    }
+
+    .amp-vol {
+      width: 65px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header class="topbar reveal" style="--d: 0ms;">
+      <div class="brand">
+        <span class="brand-badge">X</span>
+        <span>xWLHN</span>
+      </div>
+      <nav class="nav-group">
+        <button class="btn active" onclick="jumpTo('overview', this)">Overview</button>
+        <button class="btn" onclick="jumpTo('info', this)">Info</button>
+        <button class="btn" onclick="jumpTo('projects', this)">Projects</button>
+        <button class="btn" onclick="jumpTo('stack', this)">Stack</button>
+        <button class="btn" id="themeBtn" onclick="toggleTheme()">Light / Dark</button>
+      </nav>
+    </header>
+
+    <div class="ornament reveal" style="--d: 45ms;">--- ◆ ❖ ◆ ---</div>
+
+    <div class="main-grid">
+      <div>
+        <section class="panel reveal" id="overview" style="--d: 90ms;">
+          <div class="panel-body">
+            <h1 class="hero-title">xWLHN</h1>
+            <div class="hero-subtitle">Systems Programming &bull; Low-Level Development &bull; Software Engineering</div>
+            <div class="hero-tags">C++ &bull; C# &bull; PYTHON &bull; RUST &bull; NODE.JS</div>
+            <div class="bio-box">
+              Developer focused on low-level systems, native utilities, memory-safe tooling, and backend automation. Building fast, minimal, and reliable software across native and runtime environments.
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal" id="info" style="--d: 135ms;">
+          <div class="panel-header">
+            <span>xWLHN.INFO</span>
+            <span>[VERIFIED]</span>
+          </div>
+          <div class="panel-body">
+            <table class="info-table">
+              <tr>
+                <td class="info-key">Handle</td>
+                <td class="info-val"><strong>xWLHN</strong></td>
+              </tr>
+              <tr>
+                <td class="info-key">Focus</td>
+                <td class="info-val">Systems Engineering, Native Tools &amp; Automation</td>
+              </tr>
+              <tr>
+                <td class="info-key">Languages</td>
+                <td class="info-val">
+                  <div class="lang-list">
+                    <span class="badge">C++</span>
+                    <span class="badge">C#</span>
+                    <span class="badge">Python</span>
+                    <span class="badge">Rust</span>
+                    <span class="badge">Node.js</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="info-key">GitHub</td>
+                <td class="info-val">
+                  <a href="https://github.com/xWLHN" target="_blank" rel="noopener noreferrer">github.com/xWLHN</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="info-key">Discord</td>
+                <td class="info-val">
+                  <a href="https://discord.gg/zzb" target="_blank" rel="noopener noreferrer">discord.gg/zzb</a>
+                  <button class="btn" style="margin-left: 6px;" onclick="copyLink('https://discord.gg/zzb', this)">copy</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel reveal" id="stack" style="--d: 180ms;">
+          <div class="panel-header">
+            <span>TECHNICAL SCOPE</span>
+            <span>CORE STACK</span>
+          </div>
+          <div class="panel-body">
+            <div class="focus-grid">
+              <div class="sub-card">
+                <div class="sub-card-title">
+                  <span>Native &amp; Memory-Safe</span>
+                  <span>C++ / Rust</span>
+                </div>
+                <div class="sub-card-desc">
+                  High-performance native applications, Win32 utilities, and systems-level tooling.
+                </div>
+              </div>
+              <div class="sub-card">
+                <div class="sub-card-title">
+                  <span>Scripting &amp; Runtime</span>
+                  <span>C# / Py / Node.js</span>
+                </div>
+                <div class="sub-card-desc">
+                  Desktop software, asynchronous services, CLI tools, and rapid automation workflows.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <div class="avatar-outer reveal" style="--d: 90ms;">
+          <div class="avatar-inner">
+            <img src="https://files.catbox.moe/0hfn4q.png" alt="xWLHN Avatar" onerror="this.src='https://via.placeholder.com/320x360/080808/ffffff?text=xWLHN'">
+          </div>
+          <div class="avatar-caption">ID // xWLHN</div>
+        </div>
+
+        <div class="gif-card reveal" style="--d: 135ms;">
+          <div class="gif-box">
+            <img src="https://files.catbox.moe/szra8m.gif" alt="reverse engineering" loading="eager">
+          </div>
+          <div class="gif-label">reverse engineering</div>
+        </div>
+
+        <section class="panel reveal" style="--d: 180ms;">
+          <div class="panel-header">
+            <span>Focus</span>
+          </div>
+          <div class="panel-body">
+            <div class="side-item">
+              <span>Low-Level &amp; Systems</span>
+              <span class="badge">C++ / Rust</span>
+            </div>
+            <div class="side-item">
+              <span>Desktop &amp; .NET</span>
+              <span class="badge">C#</span>
+            </div>
+            <div class="side-item">
+              <span>Automation &amp; Backend</span>
+              <span class="badge">Py / Node</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal" id="projects" style="--d: 225ms;">
+          <div class="panel-header">
+            <span>Projects</span>
+          </div>
+          <div class="panel-body">
+            <a href="https://discord.gg/zzb" target="_blank" rel="noopener noreferrer" class="side-item">
+              <span><strong>discord.gg/zzb</strong></span>
+              <span class="badge">JOIN &nearr;</span>
+            </a>
+            <a href="https://github.com/xWLHN" target="_blank" rel="noopener noreferrer" class="side-item">
+              <span><strong>github.com/xWLHN</strong></span>
+              <span class="badge">REPOS &nearr;</span>
+            </a>
+            <div class="side-note">
+              Active releases, updates, and community tools are hosted via discord.gg/zzb.
+            </div>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <div class="amp-player reveal" style="--d: 250ms;">
+    <div class="amp-titlebar">
+      <span>xWLHN.AMP</span>
+      <span id="ampState">AUTOPLAY</span>
+    </div>
+    <div class="amp-body">
+      <div class="amp-screen">
+        <div class="amp-meta">
+          <span>AUDIO DECK</span>
+          <span id="ampTime">00:00 / 00:00</span>
+        </div>
+        <div class="amp-track" id="ampTrack">xWLHN Track &mdash; cfmk9n</div>
+      </div>
+
+      <input type="range" id="ampSeek" class="amp-progress" value="0" min="0" max="100" step="1">
+
+      <div class="amp-controls">
+        <div class="amp-btns">
+          <button class="amp-btn" id="playBtn" onclick="toggleAudio()">PLAY</button>
+          <button class="amp-btn" onclick="stopAudio()">STOP</button>
+        </div>
+        <input type="range" id="ampVol" class="amp-vol" min="0" max="1" step="0.05" value="0.75" title="Volume">
+      </div>
+
+      <audio id="bgAudio" src="https://files.catbox.moe/cfmk9n.mp3" autoplay loop preload="auto"></audio>
+    </div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('bgAudio');
+    const playBtn = document.getElementById('playBtn');
+    const ampState = document.getElementById('ampState');
+    const ampTime = document.getElementById('ampTime');
+    const ampSeek = document.getElementById('ampSeek');
+    const ampVol = document.getElementById('ampVol');
+
+    audio.volume = 0.75;
+    let userPausedManually = false;
+
+    function syncPlayUI() {
+      playBtn.textContent = 'PAUSE';
+      ampState.textContent = audio.muted ? 'CLICK FOR SOUND' : 'PLAYING';
+    }
+
+    function syncPauseUI(label = 'PAUSED') {
+      playBtn.textContent = 'PLAY';
+      ampState.textContent = label;
+    }
+
+    async function runAutoplay() {
+      if (userPausedManually) return;
+      try {
+        audio.muted = false;
+        await audio.play();
+        syncPlayUI();
+      } catch (_) {
+        try {
+          audio.muted = true;
+          await audio.play();
+          syncPlayUI();
+        } catch (err) {
+          audio.muted = false;
+          syncPauseUI(audio.error ? `ERR ${audio.error.code}` : 'READY');
+        }
+      }
+    }
+
+    function unlockSoundOnInteraction() {
+      if (userPausedManually) return;
+      audio.muted = false;
+      audio.play().then(syncPlayUI).catch(() => {});
+      ['pointerdown', 'keydown', 'touchstart'].forEach(ev =>
+        document.removeEventListener(ev, unlockSoundOnInteraction)
+      );
+    }
+
+    window.addEventListener('DOMContentLoaded', runAutoplay);
+    window.addEventListener('load', () => {
+      if (audio.paused && !userPausedManually) runAutoplay();
+    });
+
+    ['pointerdown', 'keydown', 'touchstart'].forEach(ev =>
+      document.addEventListener(ev, unlockSoundOnInteraction, { passive: true })
+    );
+
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+    }
+
+    function jumpTo(id, el) {
+      document.querySelectorAll('.nav-group .btn').forEach(b => b.classList.remove('active'));
+      if (el) el.classList.add('active');
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyLink(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent;
+        btn.textContent = 'copied!';
+        setTimeout(() => btn.textContent = old, 1500);
+      });
+    }
+
+    function formatTime(sec) {
+      if (isNaN(sec) || !isFinite(sec)) return '00:00';
+      const m = Math.floor(sec / 60).toString().padStart(2, '0');
+      const s = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    async function toggleAudio() {
+      audio.muted = false;
+      if (audio.paused) {
+        userPausedManually = false;
+        try {
+          ampState.textContent = 'LOADING';
+          await audio.play();
+          syncPlayUI();
+        } catch (_) {
+          syncPauseUI(audio.error ? `ERR ${audio.error.code}` : 'READY');
+        }
+      } else {
+        userPausedManually = true;
+        audio.pause();
+        syncPauseUI('PAUSED');
+      }
+    }
+
+    function stopAudio() {
+      userPausedManually = true;
+      audio.pause();
+      audio.currentTime = 0;
+      syncPauseUI('STOPPED');
+    }
+
+    audio.addEventListener('error', () => {
+      const code = audio.error ? audio.error.code : '';
+      syncPauseUI(code ? `ERR ${code}` : 'ERR');
+    });
+
+    audio.addEventListener('playing', syncPlayUI);
+
+    audio.addEventListener('pause', () => {
+      if (!audio.error) {
+        syncPauseUI(audio.currentTime === 0 ? 'STOPPED' : 'PAUSED');
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration && isFinite(audio.duration)) {
+        ampSeek.value = (audio.currentTime / audio.duration) * 100;
+        ampTime.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+      }
+    });
+
+    ampSeek.addEventListener('input', () => {
+      if (audio.duration && isFinite(audio.duration)) {
+        audio.currentTime = (ampSeek.value / 100) * audio.duration;
+      }
+    });
+
+    ampVol.addEventListener('input', () => {
+      audio.volume = ampVol.value;
+      if (audio.volume > 0) audio.muted = false;
+      if (!audio.paused) syncPlayUI();
+    });
+  </script>
+</body>
+</html>
